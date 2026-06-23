@@ -1,407 +1,262 @@
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Stars, Float, MeshDistortMaterial, Environment, useProgress } from '@react-three/drei'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
-import { useRef, useEffect, useState } from 'react'
-import * as THREE from 'three'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
-
-gsap.registerPlugin(ScrollTrigger)
-
-function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null)
-  const [isHovering, setIsHovering] = useState(false)
-
-  useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${e.clientX}px`
-        cursorRef.current.style.top = `${e.clientY}px`
-      }
-    }
-    
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (target.tagName.toLowerCase() === 'a' || target.tagName.toLowerCase() === 'button' || target.closest('.btn') || target.closest('.card')) {
-        setIsHovering(true)
-      } else {
-        setIsHovering(false)
-      }
-    }
-
-    window.addEventListener('mousemove', moveCursor)
-    window.addEventListener('mouseover', handleMouseOver)
-
-    return () => {
-      window.removeEventListener('mousemove', moveCursor)
-      window.removeEventListener('mouseover', handleMouseOver)
-    }
-  }, [])
-
-  return <div ref={cursorRef} className={`custom-cursor ${isHovering ? 'hovering' : ''}`}></div>
-}
-
-function LoadingScreen() {
-  const { progress } = useProgress()
-  const [visible, setVisible] = useState(true)
-  const loaderRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (progress === 100) {
-      gsap.to(loaderRef.current, {
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.5,
-        onComplete: () => setVisible(false)
-      })
-    }
-  }, [progress])
-
-  if (!visible) return null
-
-  return (
-    <div ref={loaderRef} className="loading-screen">
-      <div className="loading-content">
-        <div className="loading-logo">S<span>Z</span>A</div>
-        <div className="loading-bar-wrapper">
-          <div className="loading-bar" style={{ width: `${progress}%` }}></div>
-        </div>
-        <div className="loading-text">LOADING PORTFOLIO... {Math.round(progress)}%</div>
-      </div>
-    </div>
-  )
-}
-
-function LiquidBlob() {
-  const mesh = useRef<THREE.Mesh>(null!)
-  const { viewport } = useThree()
-  
-  useFrame((state) => {
-    if (mesh.current) {
-      mesh.current.rotation.x = state.clock.elapsedTime * 0.1
-      mesh.current.rotation.y = state.clock.elapsedTime * 0.15
-      
-      // Subtle Mouse Parallax Effect
-      const x = (state.pointer.x * viewport.width) / 15
-      const y = (state.pointer.y * viewport.height) / 15
-      // Push the blob further to the right (x + 4) so it doesn't block text
-      mesh.current.position.x = THREE.MathUtils.lerp(mesh.current.position.x, x + 4, 0.05)
-      mesh.current.position.y = THREE.MathUtils.lerp(mesh.current.position.y, y, 0.05)
-    }
-  })
-
-  return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      {/* Scale down slightly to give text more room */}
-      <mesh ref={mesh} scale={1.4}>
-        <sphereGeometry args={[1, 64, 64]} />
-        <MeshDistortMaterial 
-          color="#002244"
-          emissive="#000000"
-          distort={0.4} 
-          speed={1.5} 
-          roughness={0.1}
-          metalness={0.9}
-          envMapIntensity={2}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
-        />
-      </mesh>
-    </Float>
-  )
-}
-
-function Scene() {
-  return (
-    <>
-      <ambientLight intensity={0.1} />
-      <directionalLight position={[10, 10, 5]} intensity={2} color="#00d2ff" />
-      <directionalLight position={[-10, -10, -5]} intensity={1} color="#00b4d8" />
-      
-      <Environment preset="city" />
-      <Stars radius={100} depth={50} count={2000} factor={3} saturation={0} fade speed={1} />
-      
-      <LiquidBlob />
-      
-      {/* Premium Post-Processing Bloom */}
-      <EffectComposer>
-        <Bloom luminanceThreshold={1.2} mipmapBlur intensity={1.5} />
-      </EffectComposer>
-    </>
-  )
-}
-
-function Marquee() {
-  const skills = [
-    "IT Support", "Active Directory", "Hardware Troubleshooting", "Networking", 
-    "Windows OS", "Salesforce", "Okta MFA", "Ticketing Systems", "Customer Satisfaction"
-  ]
-  return (
-    <div className="marquee-container">
-      <div className="marquee-content">
-        <span>
-          {skills.map((skill, i) => <span key={i}>✦ {skill}</span>)}
-        </span>
-        <span>
-          {skills.map((skill, i) => <span key={i + skills.length}>✦ {skill}</span>)}
-        </span>
-      </div>
-    </div>
-  )
-}
+import React, { useState } from 'react'
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="premium-header">
-      <div className="header-logo">
-        S<span>Z</span>A
+    <header className="header">
+      <div className="container header-inner">
+        <a href="#home" className="logo">
+          <div className="logo-icon">Z</div>
+          <div className="logo-text">ZED<span>MOBILES</span></div>
+        </a>
+        
+        <nav className={`nav-links ${isOpen ? 'active' : ''}`}>
+          <a href="#home">Home</a>
+          <a href="#categories">Categories</a>
+          <a href="#featured">Featured</a>
+          <a href="#contact">Contact</a>
+          <a href="#quote" className="btn btn-primary" style={{marginLeft: '1rem'}}>Shop Now</a>
+        </nav>
+
+        <button className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-      <div className={`hamburger ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>
-        <span></span>
-        <span></span>
-        <span></span>
+    </header>
+  )
+}
+
+function Hero() {
+  return (
+    <section className="hero" id="home">
+      <div className="container hero-content">
+        <div className="hero-text">
+          <h1>Your Trusted <span>Tech Partner</span></h1>
+          <p>Mobiles. Computers. Solutions. Discover the latest premium gadgets, laptops, and expert repair services all in one place.</p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <a href="#categories" className="btn btn-primary">Explore Products</a>
+            <a href="#contact" className="btn" style={{ border: '1px solid #e2e8f0' }}>Contact Support</a>
+          </div>
+        </div>
+        <div className="hero-visuals">
+          <div className="blob-bg"></div>
+          <img src="/laptop.png" alt="Premium Laptop" className="main-img" />
+          <img src="/smartphone.png" alt="Modern Smartphones" className="secondary-img" />
+        </div>
       </div>
-      <div className={`header-nav ${isOpen ? 'open' : ''}`}>
-        <a href="#home" onClick={() => setIsOpen(false)}>Home</a>
-        <a href="#about" onClick={() => setIsOpen(false)}>About</a>
-        <a href="#experience" onClick={() => setIsOpen(false)}>Experience</a>
-        <a href="#education" onClick={() => setIsOpen(false)}>Education</a>
-        <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
+    </section>
+  )
+}
+
+function TrustBadges() {
+  return (
+    <section className="features">
+      <div className="container features-grid">
+        <div className="feature-card">
+          <div className="feature-icon">🛡️</div>
+          <div className="feature-info">
+            <h3>100% Genuine</h3>
+            <p>Authentic Products</p>
+          </div>
+        </div>
+        <div className="feature-card">
+          <div className="feature-icon">🏷️</div>
+          <div className="feature-info">
+            <h3>Best Prices</h3>
+            <p>Guaranteed Savings</p>
+          </div>
+        </div>
+        <div className="feature-card">
+          <div className="feature-icon">👨‍💻</div>
+          <div className="feature-info">
+            <h3>Expert Support</h3>
+            <p>You Can Trust</p>
+          </div>
+        </div>
+        <div className="feature-card">
+          <div className="feature-icon">🔧</div>
+          <div className="feature-info">
+            <h3>Services & Repairs</h3>
+            <p>For All Brands</p>
+          </div>
+        </div>
       </div>
-    </nav>
+    </section>
+  )
+}
+
+function Brands() {
+  const brands = ["Apple", "Samsung", "MI", "Oppo", "Vivo", "HP", "Dell", "Asus", "Lenovo"];
+  
+  return (
+    <section className="brands">
+      <div className="marquee-container">
+        {/* Double the list for infinite scrolling effect */}
+        <div>
+          {brands.map((b, i) => <span key={i}>{b}</span>)}
+        </div>
+        <div>
+          {brands.map((b, i) => <span key={i + brands.length}>{b}</span>)}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Categories() {
+  return (
+    <section className="categories" id="categories">
+      <div className="container">
+        <div className="section-header">
+          <h2>Shop by Category</h2>
+          <p>Find exactly what you're looking for, from the newest mobile releases to high-performance computing power.</p>
+        </div>
+        
+        <div className="categories-grid">
+          <div className="category-card">
+            <div className="cat-icon-container">
+              <img src="/smartphone.png" alt="Mobiles" />
+            </div>
+            <h3>Mobiles</h3>
+            <p>Latest brands & best prices on iOS and Android devices.</p>
+            <a href="#" className="btn" style={{ color: 'var(--zed-bright-blue)', fontWeight: '600' }}>View Collection →</a>
+          </div>
+          
+          <div className="category-card">
+            <div className="cat-icon-container">
+              <img src="/laptop.png" alt="Computers" />
+            </div>
+            <h3>Computers</h3>
+            <p>Laptops, desktops & accessories for work and gaming.</p>
+            <a href="#" className="btn" style={{ color: 'var(--zed-bright-blue)', fontWeight: '600' }}>View Collection →</a>
+          </div>
+          
+          <div className="category-card">
+            <div className="cat-icon-container">
+              <div className="cat-icon-fallback">⚙️</div>
+            </div>
+            <h3>Solutions</h3>
+            <p>Professional repairs, upgrades & comprehensive tech support.</p>
+            <a href="#" className="btn" style={{ color: 'var(--zed-bright-blue)', fontWeight: '600' }}>Learn More →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function FeaturedProducts() {
+  return (
+    <section className="featured" id="featured">
+      <div className="container">
+        <div className="section-header">
+          <h2>Featured Tech</h2>
+          <p>Upgrade your setup with our top-rated accessories and performance machines.</p>
+        </div>
+        
+        <div className="featured-grid">
+          <div className="product-card">
+            <div className="product-image">
+              <img src="/gaming_pc.png" alt="Gaming PC" />
+            </div>
+            <h3>Custom Gaming PC</h3>
+            <div className="price">Starting at $999</div>
+            <button className="btn btn-primary" style={{ width: '100%' }}>View Details</button>
+          </div>
+          
+          <div className="product-card">
+            <div className="product-image">
+              <img src="/smartwatch.png" alt="Smartwatch" />
+            </div>
+            <h3>Premium Smartwatch</h3>
+            <div className="price">$249.99</div>
+            <button className="btn btn-primary" style={{ width: '100%' }}>View Details</button>
+          </div>
+          
+          <div className="product-card">
+            <div className="product-image">
+              <img src="/headphones.png" alt="Wireless Headphones" />
+            </div>
+            <h3>Pro Wireless Headphones</h3>
+            <div className="price">$199.99</div>
+            <button className="btn btn-primary" style={{ width: '100%' }}>View Details</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="footer" id="contact">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <div className="logo-text">ZED<span>MOBILES</span></div>
+            <p>Your one-stop destination for the latest mobiles, computers, and trusted repair solutions. Experience technology with unparalleled support.</p>
+          </div>
+          
+          <div>
+            <h4>Quick Links</h4>
+            <div className="footer-links">
+              <a href="#home">Home</a>
+              <a href="#categories">Shop Categories</a>
+              <a href="#featured">Featured Tech</a>
+              <a href="#services">Repair Services</a>
+            </div>
+          </div>
+          
+          <div>
+            <h4>Customer Care</h4>
+            <div className="footer-links">
+              <a href="#">Track Order</a>
+              <a href="#">Return Policy</a>
+              <a href="#">FAQ</a>
+              <a href="#">Support Center</a>
+            </div>
+          </div>
+          
+          <div className="contact-box">
+            <h4>Visit Us</h4>
+            <div className="contact-item">
+              <i>📍</i>
+              <span>123 Tech Avenue, Innovation District, City, State 12345</span>
+            </div>
+            <div className="contact-item">
+              <i>📞</i>
+              <span>+1 (555) 123-4567</span>
+            </div>
+            <div className="contact-item">
+              <i>✉️</i>
+              <span>support@zedmobiles.in</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} ZED Mobiles Computers. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
   )
 }
 
 function App() {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useGSAP(() => {
-    // Animate cards
-    gsap.from('.card', {
-      scrollTrigger: {
-        trigger: '.card-grid',
-        start: 'top 80%',
-        scroller: '.scroll-container'
-      },
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: 'power3.out'
-    })
-
-    // Animate timeline items
-    gsap.from('.timeline-item', {
-      scrollTrigger: {
-        trigger: '.timeline',
-        start: 'top 70%',
-        scroller: '.scroll-container'
-      },
-      x: -50,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.3,
-      ease: 'back.out(1.7)'
-    })
-  }, { scope: containerRef })
-
   return (
-    <div ref={containerRef}>
-      <LoadingScreen />
-      <CustomCursor />
-      
-      <div className="canvas-container">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <Scene />
-        </Canvas>
-      </div>
-      
-      <div className="scroll-container">
-        <Header />
-        
-        <header className="hero" id="home">
-            <div className="container hero-content">
-                <div className="hero-content-text">
-                    <h1>Hi, I'm <span className="highlight">Shaik Zaheer Ahemad</span></h1>
-                    <h2>Helpdesk Technical Analyst</h2>
-                    <p>8+ years of experience delivering exceptional IT support, resolving complex technical issues, and ensuring customer satisfaction.</p>
-                    <div>
-                        <a href="#experience" className="btn btn-primary">View Experience</a>
-                    </div>
-                </div>
-                
-                {/* Premium Profile Image Setup */}
-                <div className="profile-image-container">
-                    <div className="profile-glow"></div>
-                    <img src="/profile.jpg" alt="Shaik Zaheer Ahemad" className="profile-image" />
-                </div>
-            </div>
-        </header>
-
-        <Marquee />
-
-        <section id="about" className="section">
-            <div className="container">
-                <h2 className="section-title">Professional Summary</h2>
-                <div className="glass-panel" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', padding: '3rem', fontSize: '1.25rem' }}>
-                    <p>
-                        I am an experienced Helpdesk Technical Analyst specializing in receiving service requests, raising tickets, and monitoring alerts. My expertise lies in resolving requests using KEDB and providing end-to-end tracking of tickets from opening to closure.
-                    </p>
-                </div>
-                
-                <div className="card-grid" style={{ marginTop: '4rem' }}>
-                    <div className="card">
-                        <h3>150+ Tickets/Month</h3>
-                        <p>Resolved over 150 support tickets per month, maintaining a 95% satisfaction rate.</p>
-                    </div>
-                    <div className="card">
-                        <h3>25% Defect Reduction</h3>
-                        <p>Collaborated with engineering to resolve product defects.</p>
-                    </div>
-                    <div className="card">
-                        <h3>Team Training</h3>
-                        <p>Developed training materials to improve technical skills of the support team.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="experience" className="section bg-light">
-            <div className="container">
-                <h2 className="section-title" style={{ color: 'var(--secondary-color)' }}>Work Experience</h2>
-                <div className="timeline">
-                    
-                    <div className="timeline-item">
-                        <h3>Global IT Servicedesk Analyst</h3>
-                        <h4>Hitachi Vantara Pvt Ltd | Hyderabad, India</h4>
-                        <span className="date">Aug 2022 – Current</span>
-                        <ul>
-                            <li>Installing and configuring Windows OS (XP, 7, 10) and Windows Servers.</li>
-                            <li>Configuration of Domain & Workgroup; manage user profiles and GPOs.</li>
-                            <li>Configuration & Troubleshooting of ROUTERS & SWITCHES.</li>
-                            <li>Remote assistance using Bomgar application.</li>
-                            <li>Provisioning/de-provisioning Salesforce users and managing Okta MFA accounts.</li>
-                        </ul>
-                    </div>
-
-                    <div className="timeline-item">
-                        <h3>IT Analyst</h3>
-                        <h4>Quest Diagnostics HTAS Ltd | Hyderabad, India</h4>
-                        <span className="date">May 2018 – Aug 2022</span>
-                        <ul>
-                            <li>Creating TNP reports of patients in TEST ENVIRONMENT.</li>
-                            <li>Worked on tools: Chantilly, Sjc, Focus, Valencia.</li>
-                            <li>Troubleshooting client machines domain.</li>
-                            <li>Collaborated with IT, Operations, and laboratory teams.</li>
-                        </ul>
-                    </div>
-
-                    <div className="timeline-item">
-                        <h3>Desktop Support Analyst</h3>
-                        <h4>Value Point Systems Pvt Ltd | Hyderabad, India</h4>
-                        <span className="date">March 2017 – March 2018</span>
-                        <ul>
-                            <li>Creating Groups and assigning Security Permissions.</li>
-                            <li>Installation of Security packages and network/printer sharing.</li>
-                            <li>Resolved hardware, software, LAN cabling, and file-sharing issues.</li>
-                        </ul>
-                    </div>
-                    
-                    <div className="timeline-item" style={{ borderLeft: 'none' }}>
-                        <h3>Sales/Service Analyst</h3>
-                        <h4>Skytech Electronics | Abu Dhabi LLC, UAE</h4>
-                        <span className="date">Feb 2013 – March 2015</span>
-                        <ul>
-                            <li>Customer handling and recommending suitable products.</li>
-                            <li>Diagnosed computer/electrical issues, installed OS, upgraded hardware.</li>
-                            <li>Handled POS systems, invoiced, and processed payments.</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section id="education" className="section">
-            <div className="container">
-                <h2 className="section-title">Education</h2>
-                <div className="card-grid" style={{ maxWidth: '900px', margin: '0 auto' }}>
-                    <div className="card">
-                        <h3>Graduation (B.Com)</h3>
-                        <h4>Periyar University</h4>
-                        <p>Salem, Tamil Nadu, India (2012)</p>
-                    </div>
-                    <div className="card">
-                        <h3>SSC</h3>
-                        <h4>Board of Secondary Education</h4>
-                        <p>Andhra Pradesh, India (2002)</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" className="section bg-light">
-            <div className="container">
-                <h2 className="section-title" style={{ color: 'var(--secondary-color)' }}>Get In Touch</h2>
-                <div className="contact-wrapper">
-                    <div className="contact-info glass-panel">
-                        <h3>Contact Information</h3>
-                        <p>Ready to solve your IT challenges. Feel free to reach out for opportunities or technical assistance.</p>
-                        
-                        <div className="info-item">
-                            <i className="icon">📧</i>
-                            <div>
-                                <h4>Email</h4>
-                                <p>zaheer.shaik@example.com</p>
-                            </div>
-                        </div>
-                        
-                        <div className="info-item">
-                            <i className="icon">📱</i>
-                            <div>
-                                <h4>Phone</h4>
-                                <p>+91 9876543210</p>
-                            </div>
-                        </div>
-                        
-                        <div className="info-item">
-                            <i className="icon">📍</i>
-                            <div>
-                                <h4>Location</h4>
-                                <p>Hyderabad, India</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form className="contact-form glass-panel" onSubmit={(e) => e.preventDefault()}>
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input type="text" id="name" placeholder="John Doe" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" id="email" placeholder="john@example.com" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="message">Message</label>
-                            <textarea id="message" rows={5} placeholder="How can I help you?"></textarea>
-                        </div>
-                        <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <footer className="footer">
-            <div className="container">
-                <p>&copy; {new Date().getFullYear()} Shaik Zaheer Ahemad. All Rights Reserved.</p>
-            </div>
-        </footer>
-
-      </div>
+    <div className="app-wrapper">
+      <Header />
+      <main>
+        <Hero />
+        <TrustBadges />
+        <Brands />
+        <Categories />
+        <FeaturedProducts />
+      </main>
+      <Footer />
     </div>
   )
 }
