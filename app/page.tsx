@@ -1,73 +1,44 @@
+"use client"
 import { useState, Suspense, useRef } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useFBX, Environment, Float, ContactShadows } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useFBX, Environment } from '@react-three/drei'
 import * as THREE from 'three'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
-
-gsap.registerPlugin(ScrollTrigger)
 
 function HeadphoneModel() {
   const fbx = useFBX('/Headphone.fbx')
   const groupRef = useRef<THREE.Group>(null)
-  const { viewport } = useThree()
-  
+
   useFrame((state) => {
-    if (groupRef.current) {
-      // Gentle continuous rotation
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.2
-    }
+    if (!groupRef.current) return
+
+    const time = state.clock.getElapsedTime()
+    const isMobile = window.innerWidth <= 768
+    
+    // Base position centered in the hero-visuals container
+    const baseX = 0
+    const baseY = -0.3 // Lower the model so the top doesn't get cut off
+    
+    // Apply gentle floating animation
+    groupRef.current.position.x = baseX
+    groupRef.current.position.y = baseY + Math.sin(time) * 0.1
+    groupRef.current.position.z = 0
+
+    // Set scale based on device (slightly smaller to ensure it fits)
+    const scale = isMobile ? 0.012 : 0.016
+    groupRef.current.scale.setScalar(scale)
+
+    // Calculate target rotations including mouse pointer (-1 to 1)
+    const targetRotY = time * 0.2 + state.pointer.x * 0.8
+    const targetRotX = 0.2 + Math.sin(time * 0.5) * 0.05 - state.pointer.y * 0.5
+
+    // Smoothly interpolate to the target rotation for fluid mouse interaction
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, 0.1)
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotX, 0.1)
   })
-
-  useGSAP(() => {
-    if (!groupRef.current) return;
-    
-    // Initial state (Hero section)
-    // Positioned slightly right and up
-    gsap.set(groupRef.current.position, { x: viewport.width * 0.15, y: 0, z: 0 });
-    gsap.set(groupRef.current.scale, { x: 0.02, y: 0.02, z: 0.02 });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".app-wrapper",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1, // Smooth scrubbing
-      }
-    });
-
-    // Animate to center of screen as we scroll down to Categories
-    tl.to(groupRef.current.position, {
-      x: 0,
-      y: 0,
-      z: 2, // move closer
-      duration: 1,
-      ease: "power1.inOut"
-    }, 0);
-    
-    // As we reach the Featured section, move it to the specific card
-    // We use a specific scroll trigger for this to map to the DOM element
-    gsap.to(groupRef.current.position, {
-      x: viewport.width > 768 ? viewport.width * 0.25 : 0, // Right column on desktop, center on mobile
-      y: -viewport.height * 0.1,
-      z: 0,
-      scale: 0.015,
-      scrollTrigger: {
-        trigger: "#featured",
-        start: "top center", // When top of featured section hits center of viewport
-        end: "center center", // When center of featured section hits center
-        scrub: 1,
-      }
-    });
-
-  }, [viewport]);
 
   return (
     <group ref={groupRef} dispose={null}>
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-        <primitive object={fbx} />
-      </Float>
+      <primitive object={fbx} />
     </group>
   )
 }
@@ -130,7 +101,7 @@ function Hero() {
         </div>
         <div className="hero-visuals">
           <div className="blob-bg"></div>
-          {/* The 3D headphone is now rendered globally and floats here initially */}
+          <GlobalCanvas />
         </div>
       </div>
     </section>
@@ -263,9 +234,7 @@ function FeaturedProducts() {
           </div>
           
           <div className="product-card" id="headphones-card">
-            {/* The 3D headphone will land here on scroll. 
-                We use an empty div with the same height as an image to maintain the layout. */}
-            <div className="product-image" style={{ visibility: 'hidden' }}>
+            <div className="product-image" id="product-headphones">
               <img src="/headphones.png" alt="Wireless Headphones" />
             </div>
             <h3>Pro Wireless Headphones</h3>
@@ -336,7 +305,7 @@ function Footer() {
 function App() {
   return (
     <div className="app-wrapper">
-      <GlobalCanvas />
+      <div className="noise-overlay"></div>
       <Header />
       <main>
         <Hero />
