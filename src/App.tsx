@@ -1,4 +1,91 @@
-import { useState } from 'react'
+import { useState, Suspense, useRef } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useFBX, Environment, Float, ContactShadows } from '@react-three/drei'
+import * as THREE from 'three'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(ScrollTrigger)
+
+function HeadphoneModel() {
+  const fbx = useFBX('/Headphone.fbx')
+  const groupRef = useRef<THREE.Group>(null)
+  const { viewport } = useThree()
+  
+  useFrame((state) => {
+    if (groupRef.current) {
+      // Gentle continuous rotation
+      groupRef.current.rotation.y = state.clock.elapsedTime * 0.2
+    }
+  })
+
+  useGSAP(() => {
+    if (!groupRef.current) return;
+    
+    // Initial state (Hero section)
+    // Positioned slightly right and up
+    gsap.set(groupRef.current.position, { x: viewport.width * 0.15, y: 0, z: 0 });
+    gsap.set(groupRef.current.scale, { x: 0.02, y: 0.02, z: 0.02 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".app-wrapper",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1, // Smooth scrubbing
+      }
+    });
+
+    // Animate to center of screen as we scroll down to Categories
+    tl.to(groupRef.current.position, {
+      x: 0,
+      y: 0,
+      z: 2, // move closer
+      duration: 1,
+      ease: "power1.inOut"
+    }, 0);
+    
+    // As we reach the Featured section, move it to the specific card
+    // We use a specific scroll trigger for this to map to the DOM element
+    gsap.to(groupRef.current.position, {
+      x: viewport.width > 768 ? viewport.width * 0.25 : 0, // Right column on desktop, center on mobile
+      y: -viewport.height * 0.1,
+      z: 0,
+      scale: 0.015,
+      scrollTrigger: {
+        trigger: "#featured",
+        start: "top center", // When top of featured section hits center of viewport
+        end: "center center", // When center of featured section hits center
+        scrub: 1,
+      }
+    });
+
+  }, [viewport]);
+
+  return (
+    <group ref={groupRef} dispose={null}>
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+        <primitive object={fbx} />
+      </Float>
+    </group>
+  )
+}
+
+function GlobalCanvas() {
+  return (
+    <div className="webgl-canvas">
+      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[10, 10, 5]} intensity={1} />
+        <Suspense fallback={null}>
+          <HeadphoneModel />
+          <Environment preset="city" />
+        </Suspense>
+      </Canvas>
+    </div>
+  )
+}
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,8 +130,7 @@ function Hero() {
         </div>
         <div className="hero-visuals">
           <div className="blob-bg"></div>
-          <img src="/laptop.png" alt="Premium Laptop" className="main-img" />
-          <img src="/smartphone.png" alt="Modern Smartphones" className="secondary-img" />
+          {/* The 3D headphone is now rendered globally and floats here initially */}
         </div>
       </div>
     </section>
@@ -176,8 +262,10 @@ function FeaturedProducts() {
             <button className="btn btn-primary" style={{ width: '100%' }}>View Details</button>
           </div>
           
-          <div className="product-card">
-            <div className="product-image">
+          <div className="product-card" id="headphones-card">
+            {/* The 3D headphone will land here on scroll. 
+                We use an empty div with the same height as an image to maintain the layout. */}
+            <div className="product-image" style={{ visibility: 'hidden' }}>
               <img src="/headphones.png" alt="Wireless Headphones" />
             </div>
             <h3>Pro Wireless Headphones</h3>
@@ -248,6 +336,7 @@ function Footer() {
 function App() {
   return (
     <div className="app-wrapper">
+      <GlobalCanvas />
       <Header />
       <main>
         <Hero />

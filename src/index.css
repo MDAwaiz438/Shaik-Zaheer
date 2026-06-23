@@ -413,3 +413,14 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   .features-grid { grid-template-columns: 1fr; }
   .hero-visuals { height: 250px; }
 }
+
+/* Global 3D Canvas */
+.webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+}
