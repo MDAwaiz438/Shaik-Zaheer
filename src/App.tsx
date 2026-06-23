@@ -152,17 +152,24 @@ function Marquee() {
 }
 
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <nav className="premium-header">
       <div className="header-logo">
         S<span>Z</span>A
       </div>
-      <div className="header-nav">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
+      <div className={`hamburger ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div className={`header-nav ${isOpen ? 'open' : ''}`}>
+        <a href="#home" onClick={() => setIsOpen(false)}>Home</a>
+        <a href="#about" onClick={() => setIsOpen(false)}>About</a>
+        <a href="#experience" onClick={() => setIsOpen(false)}>Experience</a>
+        <a href="#education" onClick={() => setIsOpen(false)}>Education</a>
+        <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
       </div>
     </nav>
   )
