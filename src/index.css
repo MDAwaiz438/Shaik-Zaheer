@@ -88,17 +88,10 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   align-items: center;
   gap: 0.5rem;
 }
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--zed-bright-blue), var(--zed-light-blue));
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: 700;
-  font-family: var(--font-heading);
+.logo-img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
 }
 .logo-text {
   font-family: var(--font-heading);

@@ -7,7 +7,7 @@ function Header() {
     <header className="header">
       <div className="container header-inner">
         <a href="#home" className="logo">
-          <div className="logo-icon">Z</div>
+          <img src="/logo.png" alt="ZED Logo" className="logo-img" />
           <div className="logo-text">ZED<span>MOBILES</span></div>
         </a>
         
