@@ -350,8 +350,20 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
 }
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: repeat(1, 1fr);
   gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .featured-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 .product-card {
   background: rgba(255, 255, 255, 0.03);
