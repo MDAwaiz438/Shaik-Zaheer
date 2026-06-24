@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link href="/" className="logo-text" style={{display: 'block', marginBottom: '1rem'}}>ZED<span>MOBILES</span></Link>
+            <Link href="/" className="logo-text" style={{display: 'block', marginBottom: '1rem'}}>Zedd <span>Mobiles & Computers</span></Link>
             <p>Your one-stop destination for the latest mobiles, computers, and trusted repair solutions. Experience technology with unparalleled support.</p>
           </div>
           
