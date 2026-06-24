@@ -33,8 +33,8 @@ function HeadphoneModel() {
     groupRef.current.position.y = baseY
     groupRef.current.position.z = 0
 
-    // Set scale based on device to cover the whole gap
-    const scale = isMobile ? 0.010 : 0.018
+    // Set scale based on device to cover the whole gap (GLTF uses meters, so 100x larger than old FBX scale)
+    const scale = isMobile ? 1.0 : 1.8
     groupRef.current.scale.setScalar(scale)
 
     // Calculate target rotations including mouse pointer (-1 to 1)
