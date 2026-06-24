@@ -9,7 +9,7 @@ export default function Header() {
     <header className="header">
       <div className="container header-inner">
         <Link href="/" className="logo" onClick={() => setIsOpen(false)}>
-          <div className="logo-text">ZED <span>Computers & Mobiles</span></div>
+          <div className="logo-text">ZED <span>Computers</span></div>
         </Link>
         
         <nav className={`nav-links ${isOpen ? 'active' : ''}`}>
