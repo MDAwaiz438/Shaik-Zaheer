@@ -38,7 +38,7 @@ export default function Footer() {
             </div>
             <div className="contact-item">
               <i>📞</i>
-              <span>{/* TODO: Replace with real Indian phone number */}+91 98765 43210</span>
+              <span>+91 99498 91958</span>
             </div>
             <div className="contact-item">
               <i>✉️</i>

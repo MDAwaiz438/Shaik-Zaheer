@@ -62,7 +62,7 @@ export default function ContactPage() {
         
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
           gap: '4rem', 
           maxWidth: '1000px', 
           margin: '0 auto', 
@@ -71,37 +71,37 @@ export default function ContactPage() {
           WebkitBackdropFilter: 'blur(20px)', 
           border: '1px solid rgba(255, 255, 255, 0.08)', 
           borderRadius: '24px', 
-          padding: '3rem', 
+          padding: 'clamp(1.5rem, 5vw, 3rem)', 
           boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)' 
         }}>
           
           <div className="contact-info" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h3 style={{ fontSize: '2rem', marginBottom: '2rem', fontFamily: 'var(--font-serif)', color: 'var(--color-gold)' }}>Get In Touch</h3>
             
-            <div className="contact-item" style={{ marginBottom: '2rem', display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-              <div style={{ fontSize: '1.5rem', background: 'rgba(255, 255, 255, 0.05)', padding: '1rem', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>📍</div>
+            <div className="contact-item" style={{ marginBottom: '2rem', display: 'flex', gap: 'clamp(0.75rem, 3vw, 1.25rem)', alignItems: 'flex-start' }}>
+              <div style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', background: 'rgba(255, 255, 255, 0.05)', padding: 'clamp(0.6rem, 3vw, 1rem)', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>📍</div>
               <div style={{ paddingTop: '0.25rem' }}>
                 <strong style={{ display: 'block', color: 'var(--color-text-primary)', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Store Address</strong>
                 <span style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6' }}>{/* TODO: Replace with real Indian store address */}123 Tech Avenue, Innovation District<br/>City, State 12345</span>
               </div>
             </div>
             
-            <div className="contact-item" style={{ marginBottom: '2rem', display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-              <div style={{ fontSize: '1.5rem', background: 'rgba(255, 255, 255, 0.05)', padding: '1rem', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>📞</div>
+            <div className="contact-item" style={{ marginBottom: '2rem', display: 'flex', gap: 'clamp(0.75rem, 3vw, 1.25rem)', alignItems: 'flex-start' }}>
+              <div style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', background: 'rgba(255, 255, 255, 0.05)', padding: 'clamp(0.6rem, 3vw, 1rem)', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>📞</div>
               <div style={{ paddingTop: '0.25rem' }}>
                 <strong style={{ display: 'block', color: 'var(--color-text-primary)', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Phone</strong>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'flex-start' }}>
-                  <span style={{ color: 'rgba(255,255,255,0.7)' }}>{/* TODO: Replace with real Indian phone number */}+91 98765 43210</span>
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem', borderRadius: '8px' }}>WhatsApp Us</a>
+                  <span style={{ color: 'rgba(255,255,255,0.7)', whiteSpace: 'nowrap' }}>+91 99498 91958</span>
+                  <a href="https://wa.me/919949891958" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem', borderRadius: '8px', whiteSpace: 'nowrap' }}>WhatsApp Us</a>
                 </div>
               </div>
             </div>
             
-            <div className="contact-item" style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-              <div style={{ fontSize: '1.5rem', background: 'rgba(255, 255, 255, 0.05)', padding: '1rem', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>✉️</div>
+            <div className="contact-item" style={{ display: 'flex', gap: 'clamp(0.75rem, 3vw, 1.25rem)', alignItems: 'flex-start' }}>
+              <div style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', background: 'rgba(255, 255, 255, 0.05)', padding: 'clamp(0.6rem, 3vw, 1rem)', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>✉️</div>
               <div style={{ paddingTop: '0.25rem' }}>
                 <strong style={{ display: 'block', color: 'var(--color-text-primary)', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Email</strong>
-                <span style={{ color: 'rgba(255,255,255,0.7)' }}>support@zedmobiles.in</span>
+                <span style={{ color: 'rgba(255,255,255,0.7)', wordBreak: 'break-all' }}>support@zedmobiles.in</span>
               </div>
             </div>
           </div>

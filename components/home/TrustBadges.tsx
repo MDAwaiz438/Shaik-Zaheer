@@ -10,10 +10,10 @@ export default function TrustBadges() {
           </div>
         </div>
         <div className="feature-card">
-          <div className="feature-icon">🏷️</div>
+          <div className="feature-icon">🚚</div>
           <div className="feature-info">
-            <h3>Best Prices</h3>
-            <p>Guaranteed Savings</p>
+            <h3>Doorstep Service</h3>
+            <p>We Come to You</p>
           </div>
         </div>
         <div className="feature-card">

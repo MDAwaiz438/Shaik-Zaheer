@@ -24,7 +24,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '4rem', marginBottom: '4rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '2rem', marginTop: '4rem', marginBottom: '4rem' }}>
             <div style={{ padding: '2rem', background: 'var(--color-bg-accent-card)', border: '1px solid var(--color-border-subtle)', textAlign: 'center' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🏆</div>
               <h3 style={{ marginBottom: '0.5rem', color: 'var(--color-gold)' }}>5+ Years Experience</h3>
