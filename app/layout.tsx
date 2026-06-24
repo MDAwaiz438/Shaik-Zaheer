@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import CustomCursor from '@/components/CustomCursor'
 
 export const metadata = {
-  title: 'Zedd Mobiles and Computers | Trusted Tech Repairs & Services',
+  title: 'ZED Computers & Mobiles | Trusted Tech Repairs & Services',
   description: 'Your one-stop destination for professional mobile, laptop, and computer repairs, data recovery, and tech support in India.',
 }
 
