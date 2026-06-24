@@ -1,312 +1,69 @@
 "use client"
-import { useState, Suspense, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { useFBX, Environment } from '@react-three/drei'
-import * as THREE from 'three'
+import { useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-function HeadphoneModel() {
-  const fbx = useFBX('/Headphone.fbx')
-  const groupRef = useRef<THREE.Group>(null)
+import Hero from '@/components/home/Hero'
+import TrustBadges from '@/components/home/TrustBadges'
+import Brands from '@/components/home/Brands'
+import Categories from '@/components/home/Categories'
+import FeaturedProducts from '@/components/home/FeaturedProducts'
 
-  useFrame((state) => {
-    if (!groupRef.current) return
+gsap.registerPlugin(ScrollTrigger)
 
-    const time = state.clock.getElapsedTime()
-    const isMobile = window.innerWidth <= 768
+export default function Home() {
+  const appRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    // Hero animations
+    gsap.from('.hero-text h1', { y: 50, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.2 })
+    gsap.from('.hero-text p', { y: 30, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.4 })
+    gsap.from('.hero-text .btn', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.6, stagger: 0.1 })
     
-    // Base position centered in the hero-visuals container
-    const baseX = 0
-    const baseY = -0.3 // Lower the model so the top doesn't get cut off
-    
-    // Apply gentle floating animation
-    groupRef.current.position.x = baseX
-    groupRef.current.position.y = baseY + Math.sin(time) * 0.1
-    groupRef.current.position.z = 0
+    // Feature cards scroll animation
+    gsap.from('.feature-card', {
+      scrollTrigger: {
+        trigger: '.features',
+        start: 'top 85%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power2.out'
+    })
 
-    // Set scale based on device (slightly smaller to ensure it fits)
-    const scale = isMobile ? 0.012 : 0.016
-    groupRef.current.scale.setScalar(scale)
+    // Categories scroll animation
+    gsap.from('.category-card', {
+      scrollTrigger: {
+        trigger: '.categories',
+        start: 'top 80%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power2.out'
+    })
 
-    // Calculate target rotations including mouse pointer (-1 to 1)
-    const targetRotY = time * 0.2 + state.pointer.x * 0.8
-    const targetRotX = 0.2 + Math.sin(time * 0.5) * 0.05 - state.pointer.y * 0.5
-
-    // Smoothly interpolate to the target rotation for fluid mouse interaction
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, 0.1)
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotX, 0.1)
-  })
-
-  return (
-    <group ref={groupRef} dispose={null}>
-      <primitive object={fbx} />
-    </group>
-  )
-}
-
-function GlobalCanvas() {
-  return (
-    <div className="webgl-canvas">
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <Suspense fallback={null}>
-          <HeadphoneModel />
-          <Environment preset="city" />
-        </Suspense>
-      </Canvas>
-    </div>
-  )
-}
-
-function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+    // Featured products scroll animation
+    gsap.from('.product-card', {
+      scrollTrigger: {
+        trigger: '.featured',
+        start: 'top 80%',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power2.out'
+    })
+  }, { scope: appRef })
 
   return (
-    <header className="header">
-      <div className="container header-inner">
-        <a href="#home" className="logo">
-          <img src="/logo.png" alt="ZED Logo" className="logo-img" />
-          <div className="logo-text">ZED<span>MOBILES</span></div>
-        </a>
-        
-        <nav className={`nav-links ${isOpen ? 'active' : ''}`}>
-          <a href="#home">Home</a>
-          <a href="#categories">Categories</a>
-          <a href="#featured">Featured</a>
-          <a href="#contact">Contact</a>
-          <a href="#quote" className="btn btn-primary" style={{marginLeft: '1rem'}}>Shop Now</a>
-        </nav>
-
-        <button className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </header>
-  )
-}
-
-function Hero() {
-  return (
-    <section className="hero" id="home">
-      <div className="container hero-content">
-        <div className="hero-text">
-          <h1>Your Trusted <span>Tech Partner</span></h1>
-          <p>Mobiles. Computers. Solutions. Discover the latest premium gadgets, laptops, and expert repair services all in one place.</p>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <a href="#categories" className="btn btn-primary">Explore Products</a>
-            <a href="#contact" className="btn" style={{ border: '1px solid #e2e8f0' }}>Contact Support</a>
-          </div>
-        </div>
-        <div className="hero-visuals">
-          <div className="blob-bg"></div>
-          <GlobalCanvas />
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function TrustBadges() {
-  return (
-    <section className="features">
-      <div className="container features-grid">
-        <div className="feature-card">
-          <div className="feature-icon">🛡️</div>
-          <div className="feature-info">
-            <h3>100% Genuine</h3>
-            <p>Authentic Products</p>
-          </div>
-        </div>
-        <div className="feature-card">
-          <div className="feature-icon">🏷️</div>
-          <div className="feature-info">
-            <h3>Best Prices</h3>
-            <p>Guaranteed Savings</p>
-          </div>
-        </div>
-        <div className="feature-card">
-          <div className="feature-icon">👨‍💻</div>
-          <div className="feature-info">
-            <h3>Expert Support</h3>
-            <p>You Can Trust</p>
-          </div>
-        </div>
-        <div className="feature-card">
-          <div className="feature-icon">🔧</div>
-          <div className="feature-info">
-            <h3>Services & Repairs</h3>
-            <p>For All Brands</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Brands() {
-  const brands = ["Apple", "Samsung", "MI", "Oppo", "Vivo", "HP", "Dell", "Asus", "Lenovo"];
-  
-  return (
-    <section className="brands">
-      <div className="marquee-container">
-        {/* Double the list for infinite scrolling effect */}
-        <div>
-          {brands.map((b, i) => <span key={i}>{b}</span>)}
-        </div>
-        <div>
-          {brands.map((b, i) => <span key={i + brands.length}>{b}</span>)}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Categories() {
-  return (
-    <section className="categories" id="categories">
-      <div className="container">
-        <div className="section-header">
-          <h2>Shop by Category</h2>
-          <p>Find exactly what you're looking for, from the newest mobile releases to high-performance computing power.</p>
-        </div>
-        
-        <div className="categories-grid">
-          <div className="category-card">
-            <div className="cat-icon-container">
-              <img src="/smartphone.png" alt="Mobiles" />
-            </div>
-            <h3>Mobiles</h3>
-            <p>Latest brands & best prices on iOS and Android devices.</p>
-            <a href="#" className="btn" style={{ color: 'var(--zed-bright-blue)', fontWeight: '600' }}>View Collection →</a>
-          </div>
-          
-          <div className="category-card">
-            <div className="cat-icon-container">
-              <img src="/laptop.png" alt="Computers" />
-            </div>
-            <h3>Computers</h3>
-            <p>Laptops, desktops & accessories for work and gaming.</p>
-            <a href="#" className="btn" style={{ color: 'var(--zed-bright-blue)', fontWeight: '600' }}>View Collection →</a>
-          </div>
-          
-          <div className="category-card">
-            <div className="cat-icon-container">
-              <div className="cat-icon-fallback">⚙️</div>
-            </div>
-            <h3>Solutions</h3>
-            <p>Professional repairs, upgrades & comprehensive tech support.</p>
-            <a href="#" className="btn" style={{ color: 'var(--zed-bright-blue)', fontWeight: '600' }}>Learn More →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function FeaturedProducts() {
-  return (
-    <section className="featured" id="featured">
-      <div className="container">
-        <div className="section-header">
-          <h2>Featured Tech</h2>
-          <p>Upgrade your setup with our top-rated accessories and performance machines.</p>
-        </div>
-        
-        <div className="featured-grid">
-          <div className="product-card">
-            <div className="product-image">
-              <img src="/gaming_pc.png" alt="Gaming PC" />
-            </div>
-            <h3>Custom Gaming PC</h3>
-            <div className="price">Starting at $999</div>
-            <button className="btn btn-primary" style={{ width: '100%' }}>View Details</button>
-          </div>
-          
-          <div className="product-card">
-            <div className="product-image">
-              <img src="/smartwatch.png" alt="Smartwatch" />
-            </div>
-            <h3>Premium Smartwatch</h3>
-            <div className="price">$249.99</div>
-            <button className="btn btn-primary" style={{ width: '100%' }}>View Details</button>
-          </div>
-          
-          <div className="product-card" id="headphones-card">
-            <div className="product-image" id="product-headphones">
-              <img src="/headphones.png" alt="Wireless Headphones" />
-            </div>
-            <h3>Pro Wireless Headphones</h3>
-            <div className="price">$199.99</div>
-            <button className="btn btn-primary" style={{ width: '100%' }}>View Details</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Footer() {
-  return (
-    <footer className="footer" id="contact">
-      <div className="container">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <div className="logo-text">ZED<span>MOBILES</span></div>
-            <p>Your one-stop destination for the latest mobiles, computers, and trusted repair solutions. Experience technology with unparalleled support.</p>
-          </div>
-          
-          <div>
-            <h4>Quick Links</h4>
-            <div className="footer-links">
-              <a href="#home">Home</a>
-              <a href="#categories">Shop Categories</a>
-              <a href="#featured">Featured Tech</a>
-              <a href="#services">Repair Services</a>
-            </div>
-          </div>
-          
-          <div>
-            <h4>Customer Care</h4>
-            <div className="footer-links">
-              <a href="#">Track Order</a>
-              <a href="#">Return Policy</a>
-              <a href="#">FAQ</a>
-              <a href="#">Support Center</a>
-            </div>
-          </div>
-          
-          <div className="contact-box">
-            <h4>Visit Us</h4>
-            <div className="contact-item">
-              <i>📍</i>
-              <span>123 Tech Avenue, Innovation District, City, State 12345</span>
-            </div>
-            <div className="contact-item">
-              <i>📞</i>
-              <span>+1 (555) 123-4567</span>
-            </div>
-            <div className="contact-item">
-              <i>✉️</i>
-              <span>support@zedmobiles.in</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} ZED Mobiles Computers. All Rights Reserved.</p>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-function App() {
-  return (
-    <div className="app-wrapper">
+    <div className="app-wrapper" ref={appRef}>
       <div className="noise-overlay"></div>
-      <Header />
       <main>
         <Hero />
         <TrustBadges />
@@ -314,9 +71,6 @@ function App() {
         <Categories />
         <FeaturedProducts />
       </main>
-      <Footer />
     </div>
   )
 }
-
-export default App

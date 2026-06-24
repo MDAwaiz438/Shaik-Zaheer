@@ -76,7 +76,7 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   font-family: var(--font-jura);
   font-weight: 600;
   border-radius: 0; /* Boxy look for premium feel */
-  transition: var(--transition);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -209,11 +209,19 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   gap: 1.25rem;
   padding: 1rem;
   border: 1px solid transparent;
-  transition: var(--transition);
+  transition: border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .feature-card:hover {
   border-color: var(--color-border-gold);
   background: var(--color-bg-accent-card);
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .feature-icon {
   width: 48px;
@@ -297,14 +305,33 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   background: var(--color-bg-card);
   padding: 3rem 2rem;
   text-align: center;
-  transition: var(--transition);
+  transition: border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 1px solid var(--color-border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+  transform: skewX(-20deg);
+  transition: all 0.5s ease;
+}
+.category-card:hover::before {
+  left: 200%;
 }
 .category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-lg), 0 10px 20px rgba(201,168,76,0.1);
   border-color: var(--color-border-gold);
   background: var(--color-bg-accent-card);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .cat-icon-container {
   height: 120px;
@@ -365,12 +392,18 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
   flex-direction: column;
   align-items: center;
   border: 1px solid var(--color-border-subtle);
-  transition: var(--transition);
+  transition: border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .product-card:hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), 0 10px 30px rgba(201,168,76,0.15);
   border-color: var(--color-border-gold);
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.02);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              background-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .product-image {
   height: 220px;
@@ -461,20 +494,48 @@ button { cursor: pointer; border: none; outline: none; background: none; font-fa
 }
 
 @media (max-width: 768px) {
-  .nav-links { display: none; }
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(15px);
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--color-border-gold);
+    transform: translateY(-150%);
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    pointer-events: none;
+    z-index: 90;
+  }
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
   .hamburger {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     background: none;
     border: none;
+    z-index: 101;
   }
   .hamburger span {
-    width: 28px;
+    width: 30px;
     height: 2px;
     background: var(--color-text-primary);
     transition: var(--transition);
+    transform-origin: left center;
   }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg); }
+  
   .hero { padding: 6rem 0 4rem 0; }
   .hero-content { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
   .hero-text p { margin: 0 auto 2rem auto; }
