@@ -1,7 +1,7 @@
 "use client";
 import { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useFBX, Environment, Float, Loader } from '@react-three/drei';
+import { useGLTF, Environment, Float, Loader } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
@@ -15,7 +15,7 @@ if (typeof window !== 'undefined') {
 }
 
 function HeadphoneModel() {
-  const fbx = useFBX('/Headphone.fbx')
+  const { scene } = useGLTF('/Headphone.glb')
   const groupRef = useRef<THREE.Group>(null)
 
   useFrame((state) => {
@@ -49,7 +49,7 @@ function HeadphoneModel() {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1} floatingRange={[-0.1, 0.1]}>
       <group ref={groupRef} dispose={null}>
-        <primitive object={fbx} />
+        <primitive object={scene} />
       </group>
     </Float>
   )
