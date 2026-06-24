@@ -7,8 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Hero from '@/components/home/Hero'
 import TrustBadges from '@/components/home/TrustBadges'
 import Brands from '@/components/home/Brands'
-import Categories from '@/components/home/Categories'
-import FeaturedProducts from '@/components/home/FeaturedProducts'
+import FeaturedServices from '@/components/home/FeaturedServices'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,18 +33,7 @@ export default function Home() {
       ease: 'power2.out'
     })
 
-    // Categories scroll animation
-    gsap.from('.category-card', {
-      scrollTrigger: {
-        trigger: '.categories',
-        start: 'top 80%',
-      },
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power2.out'
-    })
+
 
     // Featured products scroll animation
     gsap.from('.product-card', {
@@ -68,8 +56,7 @@ export default function Home() {
         <Hero />
         <TrustBadges />
         <Brands />
-        <Categories />
-        <FeaturedProducts />
+        <FeaturedServices />
       </main>
     </div>
   )

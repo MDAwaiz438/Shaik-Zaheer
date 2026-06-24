@@ -3,8 +3,8 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-  title: 'ZED MOBILES | Premium Tech Store',
-  description: 'Your one-stop destination for the latest mobiles, computers, and trusted repair solutions.',
+  title: 'ZED MOBILES | Trusted Tech Repairs & Services',
+  description: 'Your one-stop destination for professional mobile, laptop, and computer repairs, data recovery, and tech support in India.',
 }
 
 export default function RootLayout({

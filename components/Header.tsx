@@ -14,11 +14,10 @@ export default function Header() {
         
         <nav className={`nav-links ${isOpen ? 'active' : ''}`}>
           <Link href="/" onClick={() => setIsOpen(false)}>Home</Link>
-          <Link href="/categories" onClick={() => setIsOpen(false)}>Categories</Link>
-          <Link href="/products" onClick={() => setIsOpen(false)}>Products</Link>
+          <Link href="/services" onClick={() => setIsOpen(false)}>Services</Link>
           <Link href="/about" onClick={() => setIsOpen(false)}>About</Link>
           <Link href="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
-          <Link href="/products" className="btn btn-primary" style={{marginLeft: '1rem'}} onClick={() => setIsOpen(false)}>Shop Now</Link>
+          <Link href="/contact" className="btn btn-primary" style={{marginLeft: '1rem'}} onClick={() => setIsOpen(false)}>Book a Repair</Link>
         </nav>
 
         <button className={`hamburger ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>

@@ -14,19 +14,19 @@ export default function Footer() {
             <h4>Quick Links</h4>
             <div className="footer-links">
               <Link href="/">Home</Link>
-              <Link href="/categories">Shop Categories</Link>
-              <Link href="/products">Featured Tech</Link>
-              <Link href="/contact">Repair Services</Link>
+              <Link href="/services">Services</Link>
+              <Link href="/about">About Us</Link>
+              <Link href="/contact">Contact</Link>
             </div>
           </div>
           
           <div>
-            <h4>Customer Care</h4>
+            <h4>Services</h4>
             <div className="footer-links">
-              <Link href="/contact">Track Order</Link>
-              <Link href="/contact">Return Policy</Link>
-              <Link href="/about">FAQ</Link>
-              <Link href="/contact">Support Center</Link>
+              <Link href="/contact">Repair Request</Link>
+              <Link href="/services">Screen Replacement</Link>
+              <Link href="/services">Battery Swap</Link>
+              <Link href="/services">Data Recovery</Link>
             </div>
           </div>
           
@@ -34,11 +34,11 @@ export default function Footer() {
             <h4>Visit Us</h4>
             <div className="contact-item">
               <i>📍</i>
-              <span>123 Tech Avenue, Innovation District, City, State 12345</span>
+              <span>{/* TODO: Replace with real Indian store address */}123 Tech Avenue, Innovation District</span>
             </div>
             <div className="contact-item">
               <i>📞</i>
-              <span>+1 (555) 123-4567</span>
+              <span>{/* TODO: Replace with real Indian phone number */}+91 98765 43210</span>
             </div>
             <div className="contact-item">
               <i>✉️</i>
