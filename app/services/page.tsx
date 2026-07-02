@@ -73,12 +73,12 @@ export default function ServicesPage() {
       
       {/* Decorative Blobs for Glassmorphism Background */}
       <div style={{ position: 'absolute', top: '15%', left: '-5%', width: '400px', height: '400px', background: '#3c3fde', borderRadius: '50%', filter: 'blur(150px)', opacity: 0.15, zIndex: 0, pointerEvents: 'none' }}></div>
-      <div style={{ position: 'absolute', bottom: '20%', right: '-5%', width: '500px', height: '500px', background: 'var(--color-gold)', borderRadius: '50%', filter: 'blur(150px)', opacity: 0.2, zIndex: 0, pointerEvents: 'none' }}></div>
+      <div style={{ position: 'absolute', bottom: '20%', right: '-5%', width: '500px', height: '500px', background: 'var(--color-blue)', borderRadius: '50%', filter: 'blur(150px)', opacity: 0.2, zIndex: 0, pointerEvents: 'none' }}></div>
 
       <main style={{ paddingTop: '80px', paddingBottom: '80px', position: 'relative', zIndex: 1 }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <div style={{ display: 'inline-block', background: 'rgba(201,168,76,0.1)', color: 'var(--color-gold)', padding: '0.5rem 1rem', borderRadius: '30px', fontWeight: 'bold', marginBottom: '1.5rem', border: '1px solid var(--color-gold)', fontSize: 'clamp(0.8rem, 4vw, 0.95rem)', whiteSpace: 'nowrap' }}>
+            <div style={{ display: 'inline-block', background: 'rgba(37, 99, 235, 0.08)', color: 'var(--color-blue)', padding: '0.4rem 1rem', borderRadius: '9999px', fontWeight: '600', marginBottom: '1.5rem', border: '1px solid rgba(37, 99, 235, 0.2)', fontSize: 'clamp(0.8rem, 4vw, 0.95rem)', whiteSpace: 'nowrap', backdropFilter: 'blur(8px)' }}>
               🚚 Doorstep Service Available
             </div>
             <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Our Expert Services</h1>
@@ -95,7 +95,7 @@ export default function ServicesPage() {
                   <h3 style={{ fontSize: '1.4rem' }}>{service.title}</h3>
                   <p style={{ opacity: 0.8, fontSize: '0.95rem', marginBottom: '1.5rem', flexGrow: 1 }}>{service.desc}</p>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    <span style={{ color: 'var(--color-gold)', fontWeight: 'bold' }}>Starts at {service.startingPrice}</span>
+                    <span style={{ color: 'var(--color-blue)', fontWeight: 'bold' }}>Starts at {service.startingPrice}</span>
                     <Link href="/contact" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>Get Quote</Link>
                   </div>
                 </div>

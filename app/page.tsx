@@ -21,32 +21,37 @@ export default function Home() {
     gsap.from('.hero-text .btn', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.6, stagger: 0.1 })
     
     // Feature cards scroll animation
-    gsap.from('.feature-card', {
-      scrollTrigger: {
-        trigger: '.features',
-        start: 'top 85%',
-      },
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power2.out'
-    })
-
-
+    // Feature cards scroll animation
+    gsap.fromTo('.feature-card', 
+      { y: 50, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: '.features',
+          start: 'top 85%',
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out'
+      }
+    )
 
     // Featured products scroll animation
-    gsap.from('.product-card', {
-      scrollTrigger: {
-        trigger: '.featured',
-        start: 'top 80%',
-      },
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power2.out'
-    })
+    gsap.fromTo('.product-card', 
+      { y: 50, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: '.featured',
+          start: 'top 80%',
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out'
+      }
+    )
   }, { scope: appRef })
 
   return (

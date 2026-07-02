@@ -26,7 +26,7 @@ export default function FeaturedServices() {
     <section className="featured" style={{ position: 'relative', overflow: 'hidden' }}>
       {/* Decorative Blobs for Glassmorphism Background */}
       <div style={{ position: 'absolute', top: '20%', left: '5%', width: '300px', height: '300px', background: '#3c3fde', borderRadius: '50%', filter: 'blur(120px)', opacity: 0.15, zIndex: 0, pointerEvents: 'none' }}></div>
-      <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: '400px', height: '400px', background: 'var(--color-gold)', borderRadius: '50%', filter: 'blur(150px)', opacity: 0.2, zIndex: 0, pointerEvents: 'none' }}></div>
+      <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: '400px', height: '400px', background: 'var(--color-blue)', borderRadius: '50%', filter: 'blur(150px)', opacity: 0.2, zIndex: 0, pointerEvents: 'none' }}></div>
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <h2 style={{ textAlign: 'center', marginBottom: '3rem' }}>Our Top Services</h2>
