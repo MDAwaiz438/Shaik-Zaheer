@@ -37,11 +37,11 @@ export default function Footer() {
             <h4>Visit Us</h4>
             <div className="contact-item">
               <i>📍</i>
-              <span>{/* TODO: Replace with real Indian store address */}123 Tech Avenue, Innovation District</span>
+              <span>Ahmed apartment Malakpet<br/>Hyderabad, India 500024</span>
             </div>
             <div className="contact-item">
               <i>📞</i>
-              <span>+91 99498 91958</span>
+              <span>+91 83099 09248</span>
             </div>
             <div className="contact-item">
               <i>✉️</i>

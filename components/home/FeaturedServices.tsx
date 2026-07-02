@@ -6,19 +6,19 @@ export default function FeaturedServices() {
       id: 'screen-replacement',
       title: 'Screen Replacement',
       desc: 'Cracked screen? Get it replaced in under 60 minutes with genuine parts.',
-      image: '/images/services/service_screen_repair_1782292933703.png'
+      image: '/images/services/service_screen_final.png'
     },
     {
       id: 'battery-swap',
       title: 'Battery Swap',
       desc: 'Restore your device\'s battery life with our premium battery replacements.',
-      image: '/images/services/service_battery_1782292946672.png'
+      image: '/images/services/service_battery_final.png'
     },
     {
       id: 'laptop-repair',
       title: 'Laptop / PC Repair',
       desc: 'Hardware upgrades, motherboard repairs, and software troubleshooting.',
-      image: '/images/services/service_laptop_1782292996305.png'
+      image: '/images/services/service_laptop_final.png'
     }
   ];
 

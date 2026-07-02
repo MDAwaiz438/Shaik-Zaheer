@@ -4,8 +4,22 @@ import Footer from '@/components/Footer'
 import CustomCursor from '@/components/CustomCursor'
 
 export const metadata = {
+  metadataBase: new URL('https://zedcomputers.in'),
   title: 'ZED Computers | Trusted Tech Repairs & Services',
   description: 'Your one-stop destination for professional computer, laptop, and PC repairs, data recovery, and tech support in India.',
+  openGraph: {
+    title: 'ZED Computers | Trusted Tech Repairs',
+    description: 'Expert computer, laptop, and smartphone repair services in Hyderabad, India.',
+    url: 'https://zedcomputers.in',
+    siteName: 'ZED Computers',
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ZED Computers | Tech Repairs',
+    description: 'Professional computer and laptop repairs in Hyderabad, India.',
+  },
 }
 
 export default function RootLayout({

@@ -13,7 +13,7 @@ export default function Hero() {
           <p>Screen replacement, battery swap, data recovery & more — all brands, all devices.</p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Link href="/contact" className="btn btn-primary">Book a Repair</Link>
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn" style={{ background: 'white' }}>WhatsApp Us</a>
+            <a href="https://wa.me/918309909248" target="_blank" rel="noopener noreferrer" className="btn" style={{ background: 'white' }}>WhatsApp Us</a>
           </div>
         </div>
         <div className="hero-visuals">

@@ -82,7 +82,7 @@ export default function ContactPage() {
               <div style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', background: 'rgba(15, 23, 42, 0.05)', padding: 'clamp(0.6rem, 3vw, 1rem)', borderRadius: '50%', border: '1px solid rgba(15, 23, 42, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>📍</div>
               <div style={{ paddingTop: '0.25rem' }}>
                 <strong style={{ display: 'block', color: 'var(--color-text-primary)', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Store Address</strong>
-                <span style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>{/* TODO: Replace with real Indian store address */}123 Tech Avenue, Innovation District<br/>City, State 12345</span>
+                <span style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>Ahmed apartment Malakpet<br/>Hyderabad, India 500024</span>
               </div>
             </div>
             
@@ -91,8 +91,8 @@ export default function ContactPage() {
               <div style={{ paddingTop: '0.25rem' }}>
                 <strong style={{ display: 'block', color: 'var(--color-text-primary)', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Phone</strong>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'flex-start' }}>
-                  <span style={{ color: 'var(--color-text-muted)', whiteSpace: 'nowrap' }}>+91 99498 91958</span>
-                  <a href="https://wa.me/919949891958" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem', borderRadius: '8px', whiteSpace: 'nowrap' }}>WhatsApp Us</a>
+                  <span style={{ color: 'var(--color-text-muted)', whiteSpace: 'nowrap' }}>+91 83099 09248</span>
+                  <a href="https://wa.me/918309909248" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem', borderRadius: '8px', whiteSpace: 'nowrap' }}>WhatsApp Us</a>
                 </div>
               </div>
             </div>

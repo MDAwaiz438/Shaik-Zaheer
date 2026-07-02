@@ -54,8 +54,47 @@ export default function Home() {
     )
   }, { scope: appRef })
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'ZED Computers',
+    image: 'https://zedcomputers.in/logo.png', // Update with actual logo URL
+    '@id': 'https://zedcomputers.in',
+    url: 'https://zedcomputers.in',
+    telephone: '+918309909248',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Ahmed apartment Malakpet',
+      addressLocality: 'Hyderabad',
+      postalCode: '500024',
+      addressCountry: 'IN'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 17.3730,
+      longitude: 78.4981
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ],
+      opens: '10:00',
+      closes: '20:00'
+    }
+  }
+
   return (
     <div className="app-wrapper" ref={appRef}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="noise-overlay"></div>
       <main>
         <Hero />

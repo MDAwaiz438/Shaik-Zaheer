@@ -6,63 +6,63 @@ export default function ServicesPage() {
       id: 'screen-replacement',
       title: 'Screen Replacement',
       desc: 'Got a cracked screen? We offer high-quality, genuine screen replacements for all major smartphone and tablet brands within 60 minutes.',
-      image: '/images/services/service_screen_repair_1782292933703.png',
+      image: '/images/services/service_screen_final.png',
       startingPrice: '₹1499'
     },
     {
       id: 'battery-replacement',
       title: 'Battery Replacement',
       desc: 'Is your device draining too fast? Get a fresh, original battery installed quickly to restore your full day of usage.',
-      image: '/images/services/service_battery_1782292946672.png',
+      image: '/images/services/service_battery_final.png',
       startingPrice: '₹899'
     },
     {
       id: 'data-recovery',
       title: 'Data Recovery',
       desc: 'Accidentally deleted photos or broken phone? Our expert technicians can safely recover your precious data, contacts, and media.',
-      image: '/images/services/service_data_1782292958103.png',
+      image: '/images/services/service_data_final.png',
       startingPrice: '₹1999'
     },
     {
       id: 'software-virus',
       title: 'Software Issues & Virus Removal',
       desc: 'Device running slow or crashing? We handle OS reinstalls, malware removal, and software optimization for phones and PCs.',
-      image: '/images/services/service_software_1782292970974.png',
+      image: '/images/services/service_software_final.png',
       startingPrice: '₹499'
     },
     {
       id: 'laptop-pc-repair',
       title: 'Laptop / PC Repair',
       desc: 'From motherboard repairs and keyboard replacements to RAM/SSD upgrades. We fix all Windows and Mac machines.',
-      image: '/images/services/service_laptop_1782292996305.png',
+      image: '/images/services/service_laptop_final.png',
       startingPrice: '₹999'
     },
     {
       id: 'accessories-parts',
       title: 'Accessories & Spare Parts',
       desc: 'We stock genuine chargers, cables, protective cases, tempered glass, and internal spare parts for all major tech brands.',
-      image: '/images/services/service_accessories_1782293008894.png',
+      image: '/images/services/service_accessories_final.png',
       startingPrice: '₹199'
     },
     {
       id: 'routers-networking',
       title: 'Routers & Networking',
       desc: 'Wi-Fi dead zones? We install, configure, and troubleshoot routers, mesh networks, and range extenders for flawless connectivity.',
-      image: '/images/services/service_router_1782293025238.png',
+      image: '/images/services/service_router_final.png',
       startingPrice: '₹499'
     },
     {
       id: 'cctv-installation',
       title: 'CCTV Installation & Service',
       desc: 'Secure your home or business. We provide end-to-end CCTV camera installation, DVR setup, and maintenance services.',
-      image: '/images/services/service_cctv_1782293037970.png',
+      image: '/images/services/service_cctv_final.png',
       startingPrice: '₹1499'
     },
     {
       id: 'printer-repair',
       title: 'Printer Service & Repair',
       desc: 'Inkjet or Laserjet issues? We fix paper jams, connectivity issues, and provide ink/toner replacement and regular maintenance.',
-      image: '/images/services/service_printer_1782293050771.png',
+      image: '/images/services/service_printer_final.png',
       startingPrice: '₹599'
     }
   ];
