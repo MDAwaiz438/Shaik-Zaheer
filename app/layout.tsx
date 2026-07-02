@@ -5,7 +5,7 @@ import CustomCursor from '@/components/CustomCursor'
 
 export const metadata = {
   title: 'ZED Computers | Trusted Tech Repairs & Services',
-  description: 'Your one-stop destination for professional mobile, laptop, and computer repairs, data recovery, and tech support in India.',
+  description: 'Your one-stop destination for professional computer, laptop, and PC repairs, data recovery, and tech support in India.',
 }
 
 export default function RootLayout({

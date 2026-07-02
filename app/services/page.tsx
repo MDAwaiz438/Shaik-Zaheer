@@ -94,10 +94,7 @@ export default function ServicesPage() {
                 <div className="product-info" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <h3 style={{ fontSize: '1.4rem' }}>{service.title}</h3>
                   <p style={{ opacity: 0.8, fontSize: '0.95rem', marginBottom: '1.5rem', flexGrow: 1 }}>{service.desc}</p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    <span style={{ color: 'var(--color-blue)', fontWeight: 'bold' }}>Starts at {service.startingPrice}</span>
-                    <Link href="/contact" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>Get Quote</Link>
-                  </div>
+                  <Link href="/contact" className="btn btn-primary" style={{ width: '100%', marginTop: 'auto' }}>Get a Quote</Link>
                 </div>
               </div>
             ))}

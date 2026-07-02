@@ -101,7 +101,7 @@ export default function ContactPage() {
               <div style={{ fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', background: 'rgba(15, 23, 42, 0.05)', padding: 'clamp(0.6rem, 3vw, 1rem)', borderRadius: '50%', border: '1px solid rgba(15, 23, 42, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center' }}>✉️</div>
               <div style={{ paddingTop: '0.25rem' }}>
                 <strong style={{ display: 'block', color: 'var(--color-text-primary)', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Email</strong>
-                <span style={{ color: 'var(--color-text-muted)', wordBreak: 'break-all' }}>support@zedmobiles.in</span>
+                <span style={{ color: 'var(--color-text-muted)', wordBreak: 'break-all' }}>support@zedcomputers.in</span>
               </div>
             </div>
           </div>

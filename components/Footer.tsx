@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href="/" className="logo-text" style={{display: 'block', marginBottom: '1rem'}}>ZED <span>Computers</span></Link>
-            <p>Your one-stop destination for the latest mobiles, computers, and trusted repair solutions. Experience technology with unparalleled support.</p>
+            <p>Your one-stop destination for the latest computers, laptops, and trusted repair solutions. Experience technology with unparalleled support.</p>
           </div>
           
           <div>
@@ -27,6 +27,9 @@ export default function Footer() {
               <Link href="/services">Screen Replacement</Link>
               <Link href="/services">Battery Swap</Link>
               <Link href="/services">Data Recovery</Link>
+              <Link href="/services">Printer Repair & Cartridge Refill</Link>
+              <Link href="/services">Wi-Fi & Network Setup</Link>
+              <Link href="/services">CCTV Installation & Service</Link>
             </div>
           </div>
           
@@ -42,13 +45,13 @@ export default function Footer() {
             </div>
             <div className="contact-item">
               <i>✉️</i>
-              <span>support@zedmobiles.in</span>
+              <span>support@zedcomputers.in</span>
             </div>
           </div>
         </div>
         
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} ZED Mobiles Computers. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} ZED Computers. All Rights Reserved.</p>
         </div>
       </div>
     </footer>
